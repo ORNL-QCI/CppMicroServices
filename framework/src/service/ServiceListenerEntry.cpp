@@ -32,7 +32,7 @@ US_MSVC_PUSH_DISABLE_WARNING(4180) // qualifier applied to function type has no 
 
 namespace cppmicroservices {
 
-struct ServiceListenerCompare : std::binary_function<ServiceListener, ServiceListener, bool>
+struct ServiceListenerCompare
 {
   bool operator()(const ServiceListener& f1,
                   const ServiceListener& f2) const
