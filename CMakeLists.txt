@@ -32,8 +32,6 @@ endforeach()
 set(CMAKE_BUILD_TYPE "RELEASE")
 set(US_BUILD_TESTING OFF CACHE BOOL "" FORCE)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED 1)
-set(CMAKE_CXX_STANDARD 11)
 
 # Since version 3.1, CMake pulls in implicit link libraries when compiling
 # source files in C mode. Because we mix C and C++ code in the test driver
@@ -366,10 +364,6 @@ if(MSVC)
   set(US_CXX_FLAGS "/MP /WX ${US_CXX_FLAGS}")
 else()
 
-  if(US_COMPILER_APPLE_CLANG)
-    set(US_CXX_FLAGS "${US_CXX_FLAGS} -stdlib=libc++")
-  endif()
-
   # If not cross-compiling, turn on Stack Smashing Protection.
   # This is done in cases where libssp.so may not be available in the
   # cross build toolchain. The dependency with libssp.so was originally
@@ -379,7 +373,7 @@ else()
     usFunctionCheckCompilerFlags(-fstack-protector-all US_CXX_FLAGS)
   endif()
 
-  foreach(_cxxflag  -Werror -Wall -Wextra -Wpointer-arith -Winvalid-pch -Wcast-align
+  foreach(_cxxflag  -Wall -Wextra -Wpointer-arith -Winvalid-pch -Wcast-align
                     -Wwrite-strings -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast
                     -Wstrict-null-sentinel -Wsign-promo -fdiagnostics-show-option )
     usFunctionCheckCompilerFlags(${_cxxflag} US_CXX_FLAGS)
